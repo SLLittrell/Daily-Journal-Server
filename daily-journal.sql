@@ -35,5 +35,4 @@ INSERT INTO `Instructors` VALUES (null, 'Adam');
 
 
 SELECT * FROM "Entries"
-SELECT * FROM "Moods"
-SELECT * FROM "Instructors"
+
