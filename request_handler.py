@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from entries import get_all_entries
 from entries import  get_single_entry
 # from entries import  create_entry
-# from entries import  delete_entry
+from entries import  delete_entry
 # from entries import  update_entry
 
 
@@ -148,7 +148,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         # Delete a single animal from the list
         if resource == "entries":
-            delete_entries(id)
+            delete_entry(id)
         
         if resource == "moods":
             delete_moods(id)
