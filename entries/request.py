@@ -67,15 +67,23 @@ def get_single_entry(id):
 #     EMPLOYEES.append(employee)
 
 #     return employee
+def delete_entry(id):
+    with sqlite3.connect("./dailyjournal.db") as conn:
+        db_cursor = conn.cursor()
 
-# def delete_employee(id):
-#     employee_index = -1
-#     for index, employee in enumerate(EMPLOYEES):
-#         if employee["id"] == id:
-#             employee_index = index
+        db_cursor.execute("""
+        DELETE FROM entries
+        WHERE id = ?
+        """, (id, ))
 
-#     if employee_index >= 0:
-#         EMPLOYEES.pop(employee_index)
+def delete_employee(id):
+    employee_index = -1
+    for index, employee in enumerate(EMPLOYEES):
+        if employee["id"] == id:
+            employee_index = index
+
+    if employee_index >= 0:
+        EMPLOYEES.pop(employee_index)
 
 # def update_employee(id, new_employee):
 #     for index, employee in enumerate(EMPLOYEES):

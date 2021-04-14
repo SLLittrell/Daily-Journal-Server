@@ -19,6 +19,7 @@ CREATE TABLE 'Instructors' (
 
 INSERT INTO `Entries` VALUES (null, '2021-02-09', "Javascript Functions" , 'Hello', 2, 2);
 INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1);
+INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1);
 
 
 INSERT INTO `Moods` VALUES (null, 'Amazing');
