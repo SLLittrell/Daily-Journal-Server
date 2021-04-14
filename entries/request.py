@@ -34,7 +34,7 @@ def get_all_entries():
 
 # Function with a single parameter
 def get_single_entry(id):
-    with sqlite3.connect("./kennel.db") as conn:
+    with sqlite3.connect("./dailyjournal.db") as conn:
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
@@ -52,7 +52,7 @@ def get_single_entry(id):
         
         data = db_cursor.fetchone()
 
-        entry = Entries(data['id'], data['name'], data['location_id'])
+        entry = Entries(data['id'], data['date'], data['concept'], data['entry'], data['moodId'], data['instructorId'])
 
         return json.dumps(entry.__dict__)
 
