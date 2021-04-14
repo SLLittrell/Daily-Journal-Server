@@ -56,6 +56,36 @@ def get_single_entry(id):
 
         return json.dumps(entry.__dict__)
 
+def get_entry_by_search(search_term):
+    with sqlite3.connect("./dailyjournal.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            e.id,
+            e.date,
+            e.concept,
+            e.entry,
+            moodId,
+            instructorId
+        FROM entries e
+        WHERE e.concept LIKE ?
+        """, ( f"%{search_term}%", ))
+        
+        
+        entries = []
+
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+
+            entry = Entries(row['id'], row['date'], row['concept'], row['entry'], row['moodId'], row['instructorId'])
+
+            entries.append(entry.__dict__)
+
+    return json.dumps(entries)
+
 
 # def create_entry(entry):
 #     max_id = EMPLOYEES[-1]["id"]
