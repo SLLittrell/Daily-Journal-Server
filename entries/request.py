@@ -4,7 +4,7 @@ from models import Entries
 
 
 def get_all_entries():
-    with sqlite3.connect("./kennel.db") as conn:
+    with sqlite3.connect("./dailyjournal.db") as conn:
 
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
@@ -26,9 +26,9 @@ def get_all_entries():
 
         for row in dataset:
 
-            entries = Entries(row['id'], row['date'], row['concept'], row['entry'], row['moodId'], row['instructorId'])
+            entry = Entries(row['id'], row['date'], row['concept'], row['entry'], row['moodId'], row['instructorId'])
 
-            entries.append(entries.__dict__)
+            entries.append(entry.__dict__)
 
     return json.dumps(entries)
 
