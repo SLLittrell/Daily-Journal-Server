@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from entries import get_all_entries
 from entries import  get_single_entry
 from entries import  get_entry_by_search
-# from entries import  create_entry
+from entries import  create_entry
 from entries import  delete_entry
 # from entries import  update_entry
 
@@ -74,19 +74,19 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_entries()}"
 
-        # if resource == "moods":
-        #     if id is not None:
-        #         response = f"{get_single_mood(id)}"
+        if resource == "moods":
+            if id is not None:
+                response = f"{get_single_mood(id)}"
 
-        #     else:
-        #         response = f"{get_all_moods()}"
+            else:
+                response = f"{get_all_moods()}"
         
-        # if resource == "instructors":
-        #     if id is not None:
-        #         response = f"{get_single_instructor(id)}"
+        if resource == "instructors":
+            if id is not None:
+                response = f"{get_single_instructor(id)}"
 
-        #     else:
-        #         response = f"{get_all_instructors()}"
+            else:
+                response = f"{get_all_instructors()}"
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
         # `/resource?parameter=value`
@@ -121,7 +121,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         # the orange squiggle, you'll define the create_animal
         # function next.
         if resource == "entries":
-           new_item = create_entries(post_body)
+           new_item = create_entry(post_body)
         
         if resource == "moods":
            new_item = create_moods(post_body)

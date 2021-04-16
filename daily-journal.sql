@@ -37,3 +37,17 @@ INSERT INTO `Instructors` VALUES (null, 'Adam');
 
 SELECT * FROM "Entries"
 
+SELECT
+    e.id,
+    e.date,
+    e.concept,
+    e.entry,
+    e.moodId,
+    instructorId,
+    m.label,
+    i.first_name
+FROM entries e
+JOIN Moods m
+    ON m.id = e.moodId
+JOIN Instructors i
+    ON i.id = e.instructorId
