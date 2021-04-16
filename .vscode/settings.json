@@ -6,5 +6,6 @@
             "name": "Daily-Journal",
             "database": "dailyjournal.db"
         }
-    ]
+    ],
+    "python.pythonPath": "/home/sllittrell/.local/share/virtualenvs/daily-journal-server-K1XLsLT5/bin/python"
 }
