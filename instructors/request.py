@@ -1,8 +1,6 @@
 import sqlite3
 import json
 from models import Entries
-from models import Mood
-from models import Instructor
 
 
 def get_all_entries():
@@ -17,15 +15,9 @@ def get_all_entries():
             e.date,
             e.concept,
             e.entry,
-            e.moodId,
-            e.instructorId,
-            m.label,
-            i.first_name
+            moodId,
+            instructorId
         FROM entries e
-        JOIN Moods m
-            ON m.id = e.moodId
-        JOIN Instructors i
-            ON i.id = e.instructorId
         """)
 
         entries = []
@@ -36,14 +28,6 @@ def get_all_entries():
 
             entry = Entries(row['id'], row['date'], row['concept'], row['entry'], row['moodId'], row['instructorId'])
 
-            mood = Mood(row['moodId'], row['label'])
-
-            instructor = Instructor(row['instructorId'], row['first_name'])
-            
-            entry.mood = mood.__dict__
-
-            entry.instructor = instructor.__dict__
-            
             entries.append(entry.__dict__)
 
     return json.dumps(entries)
@@ -130,9 +114,3 @@ def delete_employee(id):
 
     if employee_index >= 0:
         EMPLOYEES.pop(employee_index)
-
-# def update_employee(id, new_employee):
-#     for index, employee in enumerate(EMPLOYEES):
-#         if employee["id"] == id:
-#             EMPLOYEES[index] = new_employee
-#             break

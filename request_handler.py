@@ -74,19 +74,19 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_entries()}"
 
-        # if resource == "moods":
-        #     if id is not None:
-        #         response = f"{get_single_mood(id)}"
+        if resource == "moods":
+            if id is not None:
+                response = f"{get_single_mood(id)}"
 
-        #     else:
-        #         response = f"{get_all_moods()}"
+            else:
+                response = f"{get_all_moods()}"
         
-        # if resource == "instructors":
-        #     if id is not None:
-        #         response = f"{get_single_instructor(id)}"
+        if resource == "instructors":
+            if id is not None:
+                response = f"{get_single_instructor(id)}"
 
-        #     else:
-        #         response = f"{get_all_instructors()}"
+            else:
+                response = f"{get_all_instructors()}"
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
         # `/resource?parameter=value`
