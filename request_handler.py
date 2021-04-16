@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from entries import get_all_entries
 from entries import  get_single_entry
 from entries import  get_entry_by_search
-# from entries import  create_entry
+from entries import  create_entry
 from entries import  delete_entry
 # from entries import  update_entry
 
@@ -121,7 +121,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         # the orange squiggle, you'll define the create_animal
         # function next.
         if resource == "entries":
-           new_item = create_entries(post_body)
+           new_item = create_entry(post_body)
         
         if resource == "moods":
            new_item = create_moods(post_body)
