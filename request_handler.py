@@ -6,7 +6,7 @@ from entries import  get_single_entry
 from entries import  get_entry_by_search
 from entries import  create_entry
 from entries import  delete_entry
-# from entries import  update_entry
+from entries import  update_entry
 
 
 
@@ -135,7 +135,6 @@ class HandleRequests(BaseHTTPRequestHandler):
     # Here's a method on the class that overrides the parent's method.
     # It handles any PUT request.
     def do_PUT(self):
-        self._set_headers(204)
         content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
@@ -143,17 +142,24 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Parse the URL
         (resource, id) = self.parse_url(self.path)
 
+        success = False
+
         # Delete a single animal from the list
         if resource == "entries":
-            update_entries(id)
+            success = update_entry(id, post_body)
         
         if resource == "moods":
-            update_moods(id)
+            success = update_moods(id, post_body)
         
         if resource == "instructors":
-            update_instructors(id)
+            success = update_instructors(id, post_body)
         
-        
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
+
+        self.wfile.write("".encode())
 
         # Encode the new animal and send in response
         # Not needed because 204 does not return anything

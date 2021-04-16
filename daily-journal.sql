@@ -43,7 +43,7 @@ SELECT
     e.concept,
     e.entry,
     e.moodId,
-    instructorId,
+    e.instructorId,
     m.label,
     i.first_name
 FROM entries e
