@@ -17,6 +17,19 @@ CREATE TABLE 'Instructors' (
     'first_name' TEXT NOT NULL
 );
 
+CREATE TABLE 'Tags' (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    'name' TEXT NOT NULL
+);
+
+CREATE TABLE 'entry_tag' (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    'entry_id' INTEGER NOT NULL,
+    'tag_id' TEXT NOT NULL,
+    FOREIGN KEY(`entry_id`) REFERENCES `Entries`(`id`),
+	FOREIGN KEY(`tag_id`) REFERENCES `Tags`(`id`)
+);
+
 INSERT INTO `Entries` VALUES (null, '2021-02-09', "Javascript Functions" , 'Hello', 2, 2);
 INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1);
 INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1);
@@ -32,10 +45,14 @@ INSERT INTO `Instructors` VALUES (null, 'Jisie');
 INSERT INTO `Instructors` VALUES (null, 'Scott');
 INSERT INTO `Instructors` VALUES (null, 'Adam');
 
+INSERT INTO `Tags` VALUES (null, 'Python');
+INSERT INTO `Tags` VALUES (null, 'React');
+INSERT INTO `Tags` VALUES (null, 'JavaScript');
 
 
 
-SELECT * FROM "Entries"
+
+SELECT * FROM "entry_tag"
 
 SELECT
     e.id,
