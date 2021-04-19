@@ -68,3 +68,10 @@ JOIN Moods m
     ON m.id = e.moodId
 JOIN Instructors i
     ON i.id = e.instructorId
+
+SELECT 
+    t.name
+FROM Tags t
+JOIN entry_tag
+    ON t.id = entry_tag.tag_id
+WHERE entry_id = 5

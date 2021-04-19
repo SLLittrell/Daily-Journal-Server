@@ -21,7 +21,7 @@ def get_all_entries():
             e.moodId,
             e.instructorId,
             m.label,
-            i.first_name,
+            i.first_name
         FROM entries e
         JOIN Moods m
             ON m.id = e.moodId
@@ -40,13 +40,24 @@ def get_all_entries():
             mood = Mood(row['moodId'], row['label'])
 
             instructor = Instructor(row['instructorId'], row['first_name'])
+
             
             entry.mood = mood.__dict__
 
+
             entry.instructor = instructor.__dict__
             
-            entries.append(entry.__dict__)
-
+        
+        db_cursor.execute("""
+        SELECT 
+            t.name tag_name
+        FROM Tags t
+        JOIN entry_tag
+            ON t.id = entry_tag.tag_id
+        WHERE entry_id = ?
+        """, (row['id'],))
+            
+    
     return json.dumps(entries)
 
 # Function with a single parameter

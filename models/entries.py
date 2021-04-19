@@ -7,3 +7,4 @@ class Entries():
         self.moodId = moodId
         self.instructorId = instructorId
         self.mood = None
+        self.tags = None
