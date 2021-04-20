@@ -46,17 +46,25 @@ def get_all_entries():
 
 
             entry.instructor = instructor.__dict__
-            
+            entries.append(entry.__dict__)
         
-        db_cursor.execute("""
-        SELECT 
-            t.name tag_name
-        FROM Tags t
-        JOIN entry_tag
-            ON t.id = entry_tag.tag_id
-        WHERE entry_id = ?
-        """, (row['id'],))
+            db_cursor.execute("""
+            SELECT 
+                t.id,
+                t.name tag_name
+            FROM Tags t
+            JOIN entry_tag e
+                ON t.id = e.tag_id
+            WHERE entry_id = ?
+            """, (row['id'],))
             
+        tag_entry= db_cursor.fetchall()
+        # 
+        tags = []
+
+        for row in tag_entry:
+            tag = Tag(row['id'], row['tag_name'])
+
     
     return json.dumps(entries)
 

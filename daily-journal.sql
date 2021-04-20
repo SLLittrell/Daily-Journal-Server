@@ -70,8 +70,10 @@ JOIN Instructors i
     ON i.id = e.instructorId
 
 SELECT 
-    t.name
+    t.id,
+    t.name,
+    e.entry_id
 FROM Tags t
-JOIN entry_tag
-    ON t.id = entry_tag.tag_id
-WHERE entry_id = 5
+JOIN entry_tag e
+    ON t.id = e.tag_id
+WHERE entry_id = 6
