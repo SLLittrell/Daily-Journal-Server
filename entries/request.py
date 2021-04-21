@@ -22,11 +22,16 @@ def get_all_entries():
             e.instructorId,
             m.label,
             i.first_name
+            t.name
         FROM entries e
         JOIN Moods m
             ON m.id = e.moodId
         JOIN Instructors i
             ON i.id = e.instructorId
+        JOIN entry_tag _e
+            ON _e.entry_id = e.id
+        JOIN Tags t
+            ON _e.tag_id = t.id
         """)
 
         entries = []
@@ -46,25 +51,32 @@ def get_all_entries():
 
 
             entry.instructor = instructor.__dict__
-            entries.append(entry.__dict__)
-        
-            db_cursor.execute("""
-            SELECT 
-                t.id,
-                t.name tag_name
-            FROM Tags t
-            JOIN entry_tag e
-                ON t.id = e.tag_id
-            WHERE entry_id = ?
-            """, (row['id'],))
             
-        tag_entry= db_cursor.fetchall()
-        # 
-        tags = []
+            
+        
+        #     db_cursor.execute("""
+        #     SELECT 
+        #         t.id,
+        #         t.name tag_name
+        #     FROM Tags t
+        #     JOIN entry_tag e
+        #         ON t.id = e.tag_id
+        #     JOIN entries e
+        #         ON e.entry_id = ?
+        #     WHERE entry_id = ?
+        #     """, (row['id'], row['id']))
+            
+        # tag_entry= db_cursor.fetchall()
+        # # 
+        # tags = []
 
-        for row in tag_entry:
-            tag = Tag(row['id'], row['tag_name'])
+        # for row in tag_entry:
+        #     tag = Tag(row['id'], row['tag_name'])
 
+        #     tags.append(tag.__dict__)
+
+            entries.append(entry.__dict__)
+    # entry.tags = tags
     
     return json.dumps(entries)
 

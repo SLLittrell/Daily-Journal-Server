@@ -77,3 +77,24 @@ FROM Tags t
 JOIN entry_tag e
     ON t.id = e.tag_id
 WHERE entry_id = 6
+
+
+SELECT
+    e.id,
+    e.date,
+    e.concept,
+    e.entry,
+    e.moodId,
+    e.instructorId,
+    m.label,
+    i.first_name,
+    t.name
+FROM entries e
+JOIN Moods m
+    ON m.id = e.moodId
+JOIN Instructors i
+    ON i.id = e.instructorId
+LEFT JOIN entry_tag _e
+    ON _e.entry_id = e.id
+LEFT JOIN Tags t
+    ON _e.tag_id = t.id
