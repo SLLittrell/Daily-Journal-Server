@@ -4,7 +4,7 @@ from models import Entries
 from models import Mood
 from models import Instructor
 from models import Tag
-from .entry_tag_request import get_entries_with_tags
+
 
 
 def get_all_entries():
@@ -44,13 +44,32 @@ def get_all_entries():
             
             entry.mood = mood.__dict__
 
-            entry.tag = get_entries_with_tags(row['id'])
-
             entry.instructor = instructor.__dict__
 
+    
+            db_cursor.execute("""
+            SELECT 
+                t.id,
+                t.name tag_name
+            FROM Tags t
+            JOIN entry_tag e
+                ON t.id = e.tag_id
+            WHERE e.entry_id = ?
+            """, (row['id'],))
+                
+            tag_entry= db_cursor.fetchall()
+
+            tags = []
+
+            for row in tag_entry:
+                tag = Tag(row['id'], row['tag_name'])
+
+                tags.append(tag.__dict__)
+
+            entry.tags =tags
             entries.append(entry.__dict__)
     
-    return json.dumps(entries)
+        return json.dumps(entries)
 
 # Function with a single parameter
 def get_single_entry(id):
