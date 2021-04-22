@@ -30,9 +30,9 @@ CREATE TABLE 'entry_tag' (
 	FOREIGN KEY(`tag_id`) REFERENCES `Tags`(`id`)
 );
 
-INSERT INTO `Entries` VALUES (null, '2021-02-09', "Javascript Functions" , 'Hello', 2, 2);
-INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1);
-INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1);
+INSERT INTO `Entries` VALUES (null, '2021-02-09', "Javascript Functions" , 'Hello', 2, 2,);
+INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1,);
+INSERT INTO `Entries` VALUES (null, '2021-02-15', "Many to Many", "Things and stuff", 3, 1,);
 
 
 INSERT INTO `Moods` VALUES (null, 'Amazing');
@@ -71,30 +71,10 @@ JOIN Instructors i
 
 SELECT 
     t.id,
-    t.name,
-    e.entry_id
+    t.name tag_name
 FROM Tags t
 JOIN entry_tag e
     ON t.id = e.tag_id
 WHERE entry_id = 6
 
 
-SELECT
-    e.id,
-    e.date,
-    e.concept,
-    e.entry,
-    e.moodId,
-    e.instructorId,
-    m.label,
-    i.first_name,
-    t.name
-FROM entries e
-JOIN Moods m
-    ON m.id = e.moodId
-JOIN Instructors i
-    ON i.id = e.instructorId
-LEFT JOIN entry_tag _e
-    ON _e.entry_id = e.id
-LEFT JOIN Tags t
-    ON _e.tag_id = t.id
