@@ -3,6 +3,8 @@ import json
 from models import Entries
 from models import Mood
 from models import Instructor
+from models import Tag
+from .entry_tag_request import get_entries_with_tags
 
 
 def get_all_entries():
@@ -42,10 +44,12 @@ def get_all_entries():
             
             entry.mood = mood.__dict__
 
-            entry.instructor = instructor.__dict__
-            
-            entries.append(entry.__dict__)
+            entry.tag = get_entries_with_tags(row['id'])
 
+            entry.instructor = instructor.__dict__
+
+            entries.append(entry.__dict__)
+    
     return json.dumps(entries)
 
 # Function with a single parameter
@@ -120,6 +124,11 @@ def create_entry(new_entry):
        
         new_entry['id'] = id
 
+        for tag in new_entry["tags"]:
+            db_cursor.execute("""
+            INSERT INTO entry_tag 
+                (entry_id, tag_id)
+            VALUES (?,?)""",(id, tag))
 
     return json.dumps(new_entry)
 

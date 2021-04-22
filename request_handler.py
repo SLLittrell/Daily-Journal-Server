@@ -7,6 +7,7 @@ from entries import  get_entry_by_search
 from entries import  create_entry
 from entries import  delete_entry
 from entries import  update_entry
+from tags import get_all_tags
 
 
 
@@ -87,6 +88,13 @@ class HandleRequests(BaseHTTPRequestHandler):
 
             else:
                 response = f"{get_all_instructors()}"
+        
+        if resource == "tags":
+            if id is not None:
+                pass
+
+            else:
+                response = f"{get_all_tags()}"
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
         # `/resource?parameter=value`
